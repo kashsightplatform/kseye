@@ -1,75 +1,116 @@
-# Code of Conduct
-
-## Our Pledge
-
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
-
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
-
-## Our Standards
-
-Examples of behavior that contributes to a positive environment:
-
-- **Being respectful** of differing opinions, viewpoints, and experiences
-- **Giving and gracefully accepting** constructive feedback
-- **Accepting responsibility** and apologizing to those affected by our mistakes
-- **Focusing on what is best** for the overall community
-- **Showing empathy** towards other community members
-
-Examples of unacceptable behavior:
-
-- **The use of sexualized language or imagery**, and sexual attention or advances of any kind
-- **Trolling, insulting or derogatory comments**, and personal or political attacks
-- **Public or private harassment**
-- **Publishing others' private information**, such as a physical or email address, without their explicit permission
-- **Other conduct** which could reasonably be considered inappropriate in a professional setting
-
-## Enforcement Responsibilities
-
-Community leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
-
-## Scope
-
-This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces.
-
-## Enforcement
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at kashsightplatform@gmail.com.
-
-All complaints will be reviewed and investigated promptly and fairly.
-
-## Enforcement Guidelines
-
-### 1. Correction
-
-**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome.
-
-**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
-
-### 2. Warning
-
-**Community Impact**: A violation through a single incident or series of actions.
-
-**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time.
-
-### 3. Temporary Ban
-
-**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
-
-**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time.
-
-### 4. Permanent Ban
-
-**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
-
-**Consequence**: A permanent ban from any sort of public interaction within the community.
-
-## Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.0.
-
-For answers to common questions about this code of conduct, see the [FAQ](https://www.contributor-covenant.org/faq).
+<p align="center">
+  <img src="https://img.shields.io/badge/CODE%20OF%20CONDUCT-contributor%20covenant-00D4AA?style=for-the-badge" alt="Code of Conduct" />
+</p>
 
 ---
 
-Together, let's build a welcoming community! 🤝
+## 🤝 Our Pledge
+
+We as members, contributors, and leaders pledge to make participation in our community a **harassment-free experience** for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+
+We pledge to act and interact in ways that contribute to an **open, welcoming, diverse, inclusive, and healthy community**.
+
+---
+
+## ✅ Our Standards
+
+### Positive Behavior
+
+| Behavior | Description |
+|----------|-------------|
+| 🤝 **Respectful** | Valuing differing opinions, viewpoints, and experiences |
+| 📣 **Constructive** | Giving and gracefully accepting constructive feedback |
+| 🙏 **Accountable** | Accepting responsibility and apologizing for mistakes |
+| 🎯 **Community-first** | Focusing on what is best for the overall community |
+| 💚 **Empathetic** | Showing empathy towards other community members |
+
+### Unacceptable Behavior
+
+| Behavior | Description |
+|----------|-------------|
+| 🚫 **Sexualized content** | Sexualized language, imagery, or advances of any kind |
+| 🚫 **Harassment** | Trolling, insulting, derogatory comments, or personal attacks |
+| 🚫 **Public/private abuse** | Harassment in any form |
+| 🚫 **Privacy violations** | Publishing others' private information without permission |
+| 🚫 **Unprofessional conduct** | Behavior inappropriate in a professional setting |
+
+---
+
+## ⚖️ Enforcement
+
+### Reporting
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to:
+
+| Method | Details |
+|--------|---------|
+| **Email** | kashsightplatform@gmail.com |
+| **Confidentiality** | All reports kept confidential |
+| **Response time** | Within 48 hours |
+
+### Enforcement Guidelines
+
+```
+┌──────────┬─────────────────────┬────────────────────────────────────────────┐
+│  Level   │     Impact          │            Consequence                     │
+├──────────┼─────────────────────┼────────────────────────────────────────────┤
+│   1      │ Inappropriate       │ Private written warning + explanation      │
+│          │ language/behavior   │                                            │
+├──────────┼─────────────────────┼────────────────────────────────────────────┤
+│   2      │ Single violation    │ Warning with consequences + temporary       │
+│          │ or series           │ interaction ban                           │
+├──────────┼─────────────────────┼────────────────────────────────────────────┤
+│   3      │ Serious violation   │ Temporary ban from community interaction   │
+├──────────┼─────────────────────┼────────────────────────────────────────────┤
+│   4      │ Pattern of          │ Permanent ban from all community           │
+│          │ violations          │ interaction                                │
+└──────────┴─────────────────────┴────────────────────────────────────────────┘
+```
+
+### Scope
+
+This Code of Conduct applies:
+- ✅ Within all community spaces (GitHub, discussions, issues, PRs)
+- ✅ When officially representing the community in public
+- ✅ In interactions related to the project
+
+---
+
+## 📋 Enforcement Process
+
+```
+Report Received
+       ↓
+  Investigation (fair & prompt)
+       ↓
+  Decision by community leaders
+       ↓
+  Consequence applied (per guidelines)
+       ↓
+  Follow-up with reporter (if applicable)
+```
+
+All complaints will be reviewed and investigated **promptly and fairly**. Community leaders are obligated to respect the privacy and security of the reporter.
+
+---
+
+## 📜 Attribution
+
+This Code of Conduct is adapted from the **[Contributor Covenant](https://www.contributor-covenant.org)**, version 2.0.
+
+| Resource | Link |
+|----------|------|
+| Full text | [contributor-covenant.org/version/2/0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) |
+| FAQ | [contributor-covenant.org/faq](https://www.contributor-covenant.org/faq) |
+| Translations | [contributor-covenant.org/translations](https://www.contributor-covenant.org/translations) |
+
+---
+
+<p align="center">
+  <strong>Together, let's build a welcoming community! 🤝</strong>
+</p>
+
+<p align="center">
+  <a href="README.md">← Back to README</a> •
+  <a href="CONTRIBUTING.md">Contributing Guide →</a>
+</p>

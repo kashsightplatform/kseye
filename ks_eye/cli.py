@@ -1,5 +1,5 @@
 """
-ks-eye CLI v3.1 — Offline-First with Optional Online AI
+ks-eye CLI v1.0 — Offline-First with Optional Online AI
 Full offline data processing + quick online research mode
 """
 
@@ -31,7 +31,7 @@ assistant = ResearchAssistant()
 @click.group(invoke_without_command=True)
 @click.pass_context
 def main(ctx):
-    """ks-eye v3.1: Offline-First Research Assistant"""
+    """ks-eye v1.0: Offline-First Research Assistant"""
     if ctx.invoked_subcommand is None:
         interactive_mode()
 
@@ -276,7 +276,7 @@ def interactive_mode():
         "[bold cyan]4[/bold cyan].   Validate Data File (offline)\n"
         "[bold cyan]5[/bold cyan].   Settings\n"
         "[bold red]0[/bold red].   Exit",
-        title=" ks-eye v3.1 Main Menu",
+        title=" ks-eye v1.0 Main Menu",
         border_style="cyan",
     ))
 

@@ -1,5 +1,5 @@
 """
-ks-eye Research Assistant Engine v3
+ks-eye Research Assistant Engine v1
 Human-in-the-loop: step-by-step guided research workflow
 Auto-creates folder per session, saves everything as .txt
 """
@@ -12,6 +12,14 @@ from datetime import datetime
 
 from ks_eye.engines.tgpt_engine import run_tgpt
 from ks_eye.engines.scholar_search import comprehensive_search, search_wikipedia
+from ks_eye.engines.ai_prompts import (
+    PROMPT_PROPOSAL,
+    PROMPT_QUESTIONNAIRE,
+    PROMPT_DATA_ANALYSIS,
+    PROMPT_LITERATURE_REVIEW,
+    SECTION_PROMPTS,
+    LENGTH_DIRECTIVE,
+)
 from ks_eye.config import config
 from ks_eye.ui import console
 
@@ -379,29 +387,17 @@ class ResearchAssistant:
             if not topic:
                 return {"status": "error", "message": "Please define your topic first (Step 1)"}
 
-            prompt = (
-                "You are a research assistant helping draft a research proposal.\n\n"
-                "Research Topic: {}\n"
-                "Objectives: {}\n"
-                "Target Population: {}\n"
-                "Scope/Context: {}\n\n"
-                "Draft a comprehensive research proposal with these sections:\n"
-                "1. Introduction and Background\n"
-                "2. Problem Statement\n"
-                "3. Research Questions (3-5 specific questions)\n"
-                "4. Research Objectives (SMART format)\n"
-                "5. Significance of the Study\n"
-                "6. Scope and Limitations\n"
-                "7. Proposed Methodology (suggest survey/questionnaire approach)\n"
-                "8. Timeline (realistic phases)\n"
-                "9. Expected Outcomes\n\n"
-                "Format as clear, professional text. Be specific to this topic."
-            ).format(topic, ", ".join(objectives), population, scope)
+            prompt = PROMPT_PROPOSAL(
+                topic=topic,
+                objectives=", ".join(objectives) if objectives else "Not specified",
+                population=population or "Not specified",
+                scope=scope or "Not specified",
+            )
 
             proposal_text = run_tgpt(
                 message=prompt,
                 provider=config.get_agent_provider("final_synthesis"),
-                timeout=60,
+                timeout=180,
             )
 
             if not proposal_text:
@@ -459,7 +455,7 @@ class ResearchAssistant:
             revised = run_tgpt(
                 message=prompt,
                 provider=config.get_agent_provider("final_synthesis"),
-                timeout=60,
+                timeout=180,
             )
             if revised:
                 filepath = self.session.save_proposal(revised)
@@ -500,47 +496,16 @@ class ResearchAssistant:
                 idx = proposal.find("Research Questions")
                 rq_section = proposal[idx:idx+500]
 
-            prompt = f"""You are designing a data collection questionnaire.
-
-Research Topic: {topic}
-Objectives: {', '.join(objectives)}
-{rq_section}
-
-Create a complete questionnaire in JSON format. The JSON must have this exact structure:
-
-{{
-  "title": "Questionnaire Title",
-  "description": "Brief description and instructions for respondents",
-  "sections": [
-    {{
-      "section_name": "Section Name (e.g., Demographics, Main Survey, etc.)",
-      "questions": [
-        {{
-          "id": "Q1",
-          "type": "multiple_choice|likert_scale|yes_no|open_ended|ranking|matrix|demographic",
-          "text": "The question text",
-          "options": ["option A", "option B", "option C"],
-          "required": true,
-          "hint": "Optional hint for respondents"
-        }}
-      ]
-    }}
-  ]
-}}
-
-Requirements:
-- Include a demographics section (age, gender, education, etc.)
-- Include 15-25 substantive questions aligned with research objectives
-- Use appropriate question types (likert scales for attitudes, multiple choice for behaviors, open-ended for opinions)
-- Questions should be clear, unbiased, and specific
-- Logical flow from general to specific
-
-Return ONLY valid JSON, no extra text."""
+            prompt = PROMPT_QUESTIONNAIRE(
+                topic=topic,
+                objectives=", ".join(objectives) if objectives else "Not specified",
+                proposal=self.session.state.get("proposal", {}).get("text", "Not specified"),
+            )
 
             questionnaire_json = run_tgpt(
                 message=prompt,
                 provider=config.get_agent_provider("outline_builder"),
-                timeout=60,
+                timeout=180,
             )
 
             if questionnaire_json:
@@ -606,7 +571,7 @@ Return the FULL modified JSON questionnaire."""
             revised = run_tgpt(
                 message=prompt,
                 provider=config.get_agent_provider("outline_builder"),
-                timeout=60,
+                timeout=180,
             )
 
             if revised:
@@ -727,51 +692,12 @@ Return the FULL modified JSON questionnaire."""
             if user_direction:
                 direction_prompt = f"\nSpecific analysis requests: {user_direction}"
 
-            prompt = f"""You are a data analyst analyzing research data.
-
-Research Topic: {topic}
-Objectives: {', '.join(objectives)}
-
-Questionnaire Structure:
-{json.dumps(questionnaire, indent=2)[:1500] if questionnaire else "Not available"}
-
-Collected Data (summary):
-{data_summary}
-{direction_prompt}
-
-Please provide a comprehensive analysis:
-
-1. DATA OVERVIEW
-   - Total responses
-   - Response rate (if applicable)
-   - Data quality assessment
-
-2. DEMOGRAPHIC ANALYSIS
-   - Breakdown of respondent demographics
-   - Representativeness assessment
-
-3. KEY FINDINGS (per research objective)
-   - For each objective, present the relevant findings
-   - Include percentages, frequencies, patterns
-
-4. STATISTICAL SUMMARY
-   - Descriptive statistics for key variables
-   - Notable patterns, trends, correlations
-
-5. QUALITATIVE INSIGHTS
-   - Themes from open-ended responses
-   - Notable quotes or observations
-
-6. LIMITATIONS
-   - Data collection limitations
-   - Potential biases
-   - Generalizability constraints
-
-7. RECOMMENDATIONS
-   - Actionable recommendations based on findings
-   - Suggestions for future research
-
-Be specific with numbers and percentages where possible."""
+            prompt = PROMPT_DATA_ANALYSIS(
+                topic=topic,
+                objectives=", ".join(objectives) if objectives else "Not specified",
+                data_summary=data_summary,
+                response_count=len(data),
+            )
 
             analysis = run_tgpt(
                 message=prompt,
@@ -927,27 +853,16 @@ Example: ["query 1", "query 2", "query 3", "query 4", "query 5"]"""
                 for s in selected
             ])
 
-            synthesis_prompt = f"""You are writing a literature review section.
-
-Research Topic: {self.session.state.get('topic', '')}
-
-The following sources were selected for the literature review:
-{sources_text}
-
-Write a synthesized literature review that:
-1. Organizes sources thematically (not just listing them)
-2. Identifies key findings from each source
-3. Shows connections and contradictions between sources
-4. Relates findings to the research topic
-5. Identifies gaps that the current research addresses
-6. Uses proper academic citations
-
-Write as a cohesive literature review section, 500-1000 words."""
+            synthesis_prompt = PROMPT_LITERATURE_REVIEW(
+                topic=self.session.state.get("topic", ""),
+                objectives=", ".join(self.session.state.get("objectives", [])) or "Not specified",
+                sources=sources_text,
+            )
 
             lit_review = run_tgpt(
                 message=synthesis_prompt,
                 provider=config.get_agent_provider("literature_review"),
-                timeout=60,
+                timeout=180,
             )
 
             if lit_review:
@@ -1047,113 +962,12 @@ Write as a cohesive literature review section, 500-1000 words."""
             if analysis:
                 context += f"Data Analysis: {analysis[:1500]}\n\n"
 
-            section_prompts = {
-                "executive_summary": f"""Write an executive summary for this research report.
-
-{context}
-
-The executive summary should be 200-300 words covering:
-- Purpose of the study
-- Key methodology
-- Major findings
-- Main recommendations
-- Significance
-
-Write concisely and professionally.""",
-
-                "introduction": f"""Write the Introduction section for this research report.
-
-{context}
-
-Include:
-- Background and context
-- Problem statement
-- Research objectives and questions
-- Significance of the study
-- Scope and limitations
-
-Write in formal academic style.""",
-
-                "literature_review": f"""The literature review section:
-
-{lit_review}
-
-Format this section properly for the final report. Add proper citations if sources are mentioned.
-If no literature review was done, write: 'No formal literature review was conducted for this study.'""",
-
-                "methodology": f"""Write the Methodology section.
-
-{context}
-
-Include:
-- Research design
-- Data collection methods (questionnaire/survey)
-- Target population and sampling
-- Data analysis approach
-- Ethical considerations
-- Limitations
-
-Base this on the approved proposal and data collection details.""",
-
-                "findings": f"""Write the Findings and Results section.
-
-{context}
-
-Present:
-- Demographic profile of respondents
-- Key findings organized by research objective
-- Statistical results (percentages, frequencies)
-- Notable patterns and trends
-- Qualitative insights from open-ended responses
-
-Be specific with numbers and data.""",
-
-                "discussion": f"""Write the Discussion section.
-
-{context}
-
-Include:
-- Interpretation of key findings
-- Comparison with literature (if available)
-- Implications of findings
-- Unexpected results
-- Limitations and their impact on findings""",
-
-                "recommendations": f"""Write the Recommendations section.
-
-{context}
-
-Provide:
-- Specific, actionable recommendations based on findings
-- Priority-ranked recommendations
-- Implementation suggestions
-- Areas for future research""",
-
-                "conclusion": f"""Write the Conclusion section.
-
-{context}
-
-Include:
-- Summary of key findings
-- Achievement of research objectives
-- Main contributions
-- Final thoughts""",
-
-                "references": f"""Compile the References section.
-
-Sources available:
-{json.dumps(self.session.state.get('literature_sources', []), indent=2)[:1000]}
-
-Format references in {config.get('citation_style', 'apa')} style.
-If no formal sources were used, note that this report is based on primary data collection.""",
-            }
-
-            prompt = section_prompts.get(section, f"Write the {section_name} section for this research report.\n\n{context}")
+            prompt = SECTION_PROMPTS.get(section, lambda c: _section_prompt_base(section_name, c))(context)
 
             content = run_tgpt(
                 message=prompt,
                 provider=config.get_agent_provider("final_synthesis"),
-                timeout=60,
+                timeout=180,
             )
 
             if content:
@@ -1190,7 +1004,7 @@ Please revise it based on this feedback:
 
 Return the FULL revised section."""
 
-            revised = run_tgpt(message=prompt, provider=config.get_agent_provider("final_synthesis"), timeout=60)
+            revised = run_tgpt(message=prompt, provider=config.get_agent_provider("final_synthesis"), timeout=180)
             if revised:
                 self.session.state["report_sections"][section] = {
                     "content": revised,

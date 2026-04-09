@@ -1,5 +1,5 @@
 """
-ks-eye UI — v3: Human-in-the-Loop Research Assistant
+ks-eye UI — v1: Human-in-the-Loop Research Assistant
 Clean, step-by-step display components
 """
 
@@ -10,26 +10,22 @@ from rich.text import Text
 
 console = Console()
 
+# ── ASCII Art Banner ──
 BANNER = Text.assemble(
-    ("  _  __                       ", "cyan"),
-    (" | |/ /___ _   _  ___  ___   ", "bright_cyan"),
-    (" _  __           ", "cyan"),
-    ("\n", ""),
-    (" | ' // _ \\ | | |/ _ \\/ __|  ", "bright_cyan"),
-    (" | |/ /___ _   _  ", "cyan"),
-    ("\n", ""),
-    (" | . \\  __/ |_| |  __/\\__ \\  ", "bright_cyan"),
-    (" | ' // _ \\ | | | ", "cyan"),
-    ("\n", ""),
-    (" |_|\\_\\___|\\__, |\\___||___/  ", "bright_cyan"),
-    (" | . \\  __/ |_| | ", "cyan"),
-    ("\n", ""),
-    ("           |___/             ", "bright_cyan"),
-    (" |_|\\_\\___|\\__, | ", "cyan"),
-    ("\n", ""),
-    ("            ", "bright_cyan"),
-    ("           |___/  ", "cyan"),
-    (" v3", "yellow"),
+    ("  ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ", "bright_cyan"),
+    (" ██████╗ ██████╗  █████╗ ███╗   ██╗\n", "cyan"),
+    ("  ██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ", "bright_cyan"),
+    ("██╔════╝ ██╔══██╗██╔══██╗████╗  ██║\n", "cyan"),
+    ("  █████╔╝ ███████║██████╔╝██████╔╝ ╚████╔╝     ", "bright_cyan"),
+    ("██║  ███╗██████╔╝███████║██╔██╗ ██║\n", "cyan"),
+    ("  ██╔═██╗ ██╔══██║██╔══██╗██╔══██╗  ╚██╔╝      ", "bright_cyan"),
+    ("██║   ██║██╔══██╗██╔══██║██║╚██╗██║\n", "cyan"),
+    ("  ██║  ██╗██║  ██║██║  ██║██║  ██║   ██║       ", "bright_cyan"),
+    ("╚██████╔╝██║  ██║██║  ██║██║ ╚████║\n", "cyan"),
+    ("  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ", "bright_cyan"),
+    (" ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝\n", "cyan"),
+    ("                                                    ", "bright_cyan"),
+    ("v1.0.0", "bold yellow"),
 )
 
 
@@ -40,7 +36,7 @@ def show_banner():
     console.print(
         Panel(
             "[bold cyan]AI-Human Collaborative Research Assistant[/bold cyan]\n"
-            "[dim]AI suggests. You decide. Nothing is fully automated.[/dim]",
+            "[dim]Step-by-step guided research. AI suggests. You decide. Nothing is fully automated.[/dim]",
             style="cyan",
             border_style="bright_cyan",
         )
