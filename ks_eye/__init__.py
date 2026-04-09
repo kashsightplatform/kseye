@@ -1,9 +1,9 @@
 """
-ks-eye: AI-Human Collaborative Research Assistant
+ks-eye v1: AI-Human Collaborative Research Assistant
 Step-by-step guided research: proposal, questionnaire, data collection, analysis, report
 """
 
-__version__ = "3.0.0"
+__version__ = "1.0.0"
 __author__ = "KashSight Platform"
 
 # ── Research Workflow Steps ──

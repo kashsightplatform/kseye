@@ -50,23 +50,65 @@ def quick_online_research(query, max_sources=30, provider="sky"):
     ])
 
     ai_prompt = (
-        "You are a research analyst. I will give you a list of academic and web sources "
-        "about a topic. Your job is to:\n\n"
-        "1. SYNTHESIS — Combine the key findings from all sources into a coherent summary\n"
-        "2. KEY POINTS — List 5-10 most important findings\n"
-        "3. METHODOLOGY — What research methods are common in this field?\n"
-        "4. GAPS — What's missing from current research?\n"
-        "5. RECOMMENDATIONS — What should a researcher focus on?\n"
-        "6. SOURCES RATING — Rate the overall quality of sources (High/Medium/Low)\n\n"
+        "You are a senior research analyst and academic writer. I will give you a list of "
+        "academic and web sources about a topic. Your job is to produce a COMPREHENSIVE "
+        "research brief of MINIMUM 10,000 WORDS.\n\n"
+        "CRITICAL REQUIREMENT: The output MUST be at least 10,000 words. "
+        "Do NOT summarize briefly. Write in EXTREME detail. Expand every point thoroughly.\n\n"
+        "REQUIRED STRUCTURE:\n\n"
+        "1. EXECUTIVE SUMMARY (500-800 words)\n"
+        "   - Full overview of the research landscape\n"
+        "   - Key themes and their significance\n"
+        "   - Major contributions in the field\n\n"
+        "2. COMPREHENSIVE SYNTHESIS (3,000-4,000 words)\n"
+        "   - Combine ALL key findings from every source into a coherent narrative\n"
+        "   - Discuss each finding in depth with context and background\n"
+        "   - Compare and contrast different sources' conclusions\n"
+        "   - Identify patterns, trends, and shifts in understanding\n"
+        "   - Provide historical context where relevant\n\n"
+        "3. KEY FINDINGS — DETAILED ANALYSIS (2,000-3,000 words)\n"
+        "   - List 15-25 most important findings (NOT 5-10)\n"
+        "   - For EACH finding provide:\n"
+        "     • Detailed explanation (200-300 words per finding)\n"
+        "     • Supporting evidence from sources\n"
+        "     • Implications and significance\n"
+        "     • Limitations and caveats\n\n"
+        "4. METHODOLOGICAL ANALYSIS (1,000-1,500 words)\n"
+        "   - Research methods used across sources\n"
+        "   - Strengths and weaknesses of each approach\n"
+        "   - Comparative analysis of methodologies\n"
+        "   - Recommendations for future research design\n\n"
+        "5. RESEARCH GAPS (1,000-1,500 words)\n"
+        "   - Detailed analysis of what's missing from current research\n"
+        "   - Underexplored areas and why they matter\n"
+        "   - Methodological gaps\n"
+        "   - Theoretical gaps\n"
+        "   - Practical application gaps\n\n"
+        "6. RECOMMENDATIONS (1,000-1,500 words)\n"
+        "   - Specific, actionable recommendations for researchers\n"
+        "   - Priority areas for future study\n"
+        "   - Funding and resource allocation suggestions\n"
+        "   - Policy implications\n\n"
+        "7. CRITICAL EVALUATION (1,000-1,500 words)\n"
+        "   - Overall quality assessment of the literature\n"
+        "   - Source reliability analysis\n"
+        "   - Bias detection and conflict of interest analysis\n"
+        "   - Strength of evidence across sources\n\n"
+        "8. CONCLUSION (500-800 words)\n"
+        "   - Summary of the state of the field\n"
+        "   - Most critical next steps\n"
+        "   - Final assessment\n\n"
         f"Sources:\n{sources_summary}\n\n"
-        "Provide a comprehensive research brief."
+        "Write a FULL, DETAILED, COMPREHENSIVE research brief. "
+        "MINIMUM 10,000 WORDS. Do not be brief. Expand every section thoroughly. "
+        "This is NOT a summary — this is a full research document."
     )
 
     analysis = run_tgpt(
         message=ai_prompt,
         provider=provider,
         system_prompt=f"You are analyzing research on: {query}",
-        timeout=90,
+        timeout=180,
     )
 
     if analysis:

@@ -1,5 +1,5 @@
 """
-ks-eye Configuration — v3: Human-in-the-Loop Research Assistant
+ks-eye Configuration — v1: Human-in-the-Loop Research Assistant
 """
 
 import json
