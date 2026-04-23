@@ -1,8 +1,18 @@
+```
+  _  __         _       ____  _       _     _
+ | |/ /__ _ ___| |__   / ___|(_) __ _| |__ | |_
+ | ' // _` / __| '_ \  \___ \| |/ _` | '_ \| __|
+ | . \ (_| \__ \ | | |  ___) | | (_| | | | | |_
+ |_|\_\__,_|___/_| |_| |____/|_|\__, |_| |_|\__|
+                                |___/
+                     a Kash Sight project
+```
+
 <p align="center">
   <img src="https://img.shields.io/badge/kseye-v1.0.0-00D4AA?style=for-the-badge&logo=terminal&logoColor=white" alt="ks-eye version" />
   <img src="https://img.shields.io/badge/python-3.7+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
   <img src="https://img.shields.io/badge/termux-✓-25D366?style=for-the-badge&logo=android&logoColor=white" alt="Termux" />
-  <img src="https://img.shields.io/badge/license-proprietary-FF6B6B?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/license-MIT-00D4AA?style=for-the-badge" alt="License" />
   <img src="https://img.shields.io/github/stars/kashsightplatform/kseye?style=for-the-badge&color=FFD43B" alt="Stars" />
 </p>
 
